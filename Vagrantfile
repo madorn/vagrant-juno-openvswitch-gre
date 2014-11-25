@@ -7,7 +7,6 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "madorn/trusty64"
-  config.vm.box_version = "0.2.0"
 # Begin node1
   config.vm.define "node1" do |node1|
     node1.vm.hostname = "controller"
@@ -27,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
 
    node1.vm.provider "virtualbox" do |vb, override|
-	override.vm.network "private_network", ip: "192.168.56.57"
+	override.vm.network "private_network", ip: "192.168.56.56"
         vb.customize [ "modifyvm", :id, "--cpus", "1" ]
         vb.customize [ "modifyvm", :id, "--memory", "2048" ]
 	vb.customize [ "modifyvm", :id, "--hostonlyadapter2", "vboxnet0"]
@@ -88,7 +87,7 @@ node3.vm.provider "vmware_fusion" do |vf, override|
       end
 
    node3.vm.provider "virtualbox" do |vb, override|
-        override.vm.network "private_network", ip: "192.168.56.57"
+        override.vm.network "private_network", ip: "192.168.56.58"
         vb.customize [ "modifyvm", :id, "--cpus", "1" ]
         vb.customize [ "modifyvm", :id, "--memory", "2048" ]
         vb.customize [ "modifyvm", :id, "--hostonlyadapter2", "vboxnet0"]
