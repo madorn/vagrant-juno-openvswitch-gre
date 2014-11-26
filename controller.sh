@@ -12,10 +12,6 @@ export NOVA_IP=172.16.99.100
 export CINDER_IP=172.16.99.100
 export HORIZON_IP=172.16.99.100
 
-NEUTRON_EXTERNAL_NETWORK_SUBNET_CIDR=172.16.99.0/24
-NEUTRON_EXTERNAL_NETWORK_SUBNET_START=172.16.99.150
-NEUTRON_EXTERNAL_NETWORK_SUBNET_END=172.16.99.160
-
 ### Synchronize time
 
 sudo ntpdate -u ntp.ubuntu.com | true
@@ -284,16 +280,7 @@ sudo neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /et
 sudo service neutron-server start
 sleep 15
 
-export OS_USERNAME=neutron
-export OS_PASSWORD=notneutron
-export OS_TENANT_NAME=Services
-export OS_AUTH_URL=http://$KEYSTONE_IP:5000/v2.0/
-export OS_REGION_NAME=RegionOne
-
-neutron net-create public --router:external=True
-PUBLIC_NET_ID=`neutron net-show public | awk '/ id / { print $4 }'`
-neutron subnet-create --name public-subnet --enable_dhcp=False --allocation_pool start=$NEUTRON_EXTERNAL_NETWORK_SUBNET_START,end=$NEUTRON_EXTERNAL_NETWORK_SUBNET_END $PUBLIC_NET_ID $NEUTRON_EXTERNAL_NETWORK_SUBNET_CIDR
-PUBLIC_SUBNET_ID=`neutron subnet-show public-subnet | awk '/ id / { print $4 }'`
+source ~/credentials/user
 
 neutron net-create private
 PRIVATE_NET_ID=`neutron net-show private | awk '/ id / { print $4 }'`
@@ -306,6 +293,8 @@ sudo apt-get install -y cinder-api cinder-scheduler
 
 sudo service cinder-api stop
 sudo service cinder-scheduler stop
+
+source ~/credentials/admin
 
 keystone user-create --tenant-id $SERVICE_TENANT_ID --name cinder --pass notcinder
 CINDER_USER_ID=`keystone user-get cinder | awk '/ id / { print $4 }'`
