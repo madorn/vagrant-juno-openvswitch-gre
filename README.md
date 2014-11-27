@@ -11,7 +11,7 @@ Minimum Requirements
 ---------------------
 * [Vagrant](http://www.vagrantup.com)
 * 8GB hard drive space
-* At least 3GB available RAM
+* At least 3GB RAM to allocate to environment
 
 Get Started
 ------------
@@ -29,8 +29,14 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 
 ``vagrant up --provider vmware_fusion --provision``
 
+**Create private network prior to booting instance** <br />
+
+``neutron net-create private`` <br />
+
+``neutron subnet-create <private_network_id> 10.0.0.0/29 --name private-subnet``
+
 **Creating an external network for the internet gateway  (br-ex)** <br /> 
 
-``neutron net-create public-net --router:external True --provider:network_type flat --provider:physical_network physnet1``<br /> 
+``neutron net-create public --router:external True --provider:network_type flat --provider:physical_network physnet1``<br /> 
 
-``neutron subnet-create --gateway 10.0.4.2 --allocation-pool start=10.0.4.100,end=10.0.4.200 --disable-dhcp public-subnet 10.0.4.0/24``
+``neutron subnet-create --gateway 10.0.4.2 --allocation-pool start=10.0.4.100,end=10.0.4.200 --disable-dhcp --name public-subnet 10.0.4.0/24``
