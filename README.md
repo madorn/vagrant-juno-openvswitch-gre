@@ -26,6 +26,6 @@ Verify that you have default host-only vboxnet0 network (192.168.56.0/24) <br />
 Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br /> 
 ``vagrant up --provider vmware_fusion --provision``
 
-**Creating an external network for the internet gateway  (br-ex)**
-``neutron net-create public-net --router:external True --provider:network_type flat --provider:physical_network physnet1``
+**Creating an external network for the internet gateway  (br-ex)** <br /> 
+``neutron net-create public-net --router:external True --provider:network_type flat --provider:physical_network physnet1``<br /> 
 ``neutron subnet-create --gateway --allocation-pool start=10.0.0.0,end=10.0.0.0 --disable-dhcp public-subnet 10.0.0.0/24``
