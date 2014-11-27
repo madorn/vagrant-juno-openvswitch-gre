@@ -74,4 +74,5 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 ``neutron router-interface-add <router_id> <private-subnet_id>``
 
 **Set public-network as the default gatewy**
+
 ``neutron router-gateway-set <router_id> <public-network_id>``
