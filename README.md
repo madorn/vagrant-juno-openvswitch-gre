@@ -30,7 +30,7 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 ``vagrant up --provider vmware_fusion --provision``
 
 **Horizon Dashboard** <br />
-``http://192.168.56.56/horizon`` (VirtualBox)
+``http://192.168.56.56/horizon`` (VirtualBox)<br />
 ``http://172.16.99.100/horizon`` (VMware Fusion)
 
 **SSH into node1** <br />
