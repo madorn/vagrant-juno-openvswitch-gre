@@ -29,11 +29,29 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 
 ``vagrant up --provider vmware_fusion --provision``
 
+**SSH into node1** <br />
+
+``vagrant ssh node1``
+
+**Source credentials**
+
+``source ~/credentials/admin``
+
 **Create a private network prior to booting instance** <br />
 
 ``neutron net-create private`` <br />
 
 ``neutron subnet-create --name private-subnet <private_network_id> 10.0.0.0/29``
+
+**Boot Instance**
+
+``nova boot --flavor 1 --image cirros-qcow2 myinstance``
+
+**Enable ping and SSH**
+
+``neutron security-group-rule-create --direction ingress --ethertype IPv4 --protocol tcp --port-range-min 22 --port-range-max 22 --remote-ip-prefix 10.0.0.0/24 default``
+
+``neutron security-group-rule-create --direction ingress --ethertype IPv4 --protocol icmp --remote-ip-prefix 10.0.0.0/24 default``
 
 **Create an external network for the internet gateway (VirtualBox)** <br /> 
 
@@ -46,3 +64,14 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 ``neutron net-create public --router:external True --provider:network_type flat --provider:physical_network physnet1``<br /> 
 
 ``neutron subnet-create --name public-subnet --gateway 192.16.13.2 --allocation-pool start=192.16.13.100,end=192.16.13.200 --disable-dhcp <public_network_id> 192.16.13.0/24``
+
+**Create a router**
+
+``neutron router-create myrouter``
+
+**Add private-network to the router**
+
+``neutron router-interface-add <router_id> <private-subnet_id>``
+
+**Set public-network as the default gatewy**
+``neutron router-gateway-set <router_id> <public-network_id>``
