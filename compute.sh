@@ -2,6 +2,19 @@
 
 ### Configuration
 
+ETH1=`hostname -I | cut -f2 -d' '`
+
+if [ $ETH1 = 192.168.56.58 ];then
+export MY_IP=192.168.56.58
+export RABBITMQ_IP=192.168.56.56
+export MYSQL_IP=192.168.56.56
+export KEYSTONE_IP=192.168.56.56
+export GLANCE_IP=192.168.56.56
+export NEUTRON_IP=192.168.56.56
+export NOVA_IP=192.168.56.56
+export CINDER_IP=192.168.56.56
+export HORIZON_IP=192.168.56.56
+else
 export MY_IP=172.16.99.102
 export RABBITMQ_IP=172.16.99.100
 export MYSQL_IP=172.16.99.100
@@ -11,6 +24,7 @@ export NEUTRON_IP=172.16.99.100
 export NOVA_IP=172.16.99.100
 export CINDER_IP=172.16.99.100
 export HORIZON_IP=172.16.99.100
+fi
 
 ### Synchronize time
 
@@ -67,21 +81,24 @@ sudo sed -i 's|# enable_security_group = True|firewall_driver = neutron.agent.li
 local_ip = $MY_IP
 tunnel_type = gre
 enable_tunneling = True
+physical_interface_mappings = physnet:br-ex
 EOF
 
 sudo service neutron-plugin-openvswitch-agent start
 
 ### Nova
 
+if egrep 'vmx|svm' /proc/cpuinfo  > /dev/null 2>&1 ; then
 sudo apt-get install -y nova-compute
-
 sudo modprobe kvm
 sudo modprobe kvm_intel
-
 cat <<EOF | sudo tee -a /etc/modules
 kvm
 kvm_intel
 EOF
+else
+sudo apt-get install -y nova-compute-qemu
+fi
 
 cat <<EOF | sudo tee -a /etc/nova/nova.conf
 network_api_class=nova.network.neutronv2.api.API
