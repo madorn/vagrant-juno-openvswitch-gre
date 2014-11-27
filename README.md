@@ -29,7 +29,7 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 
 ``vagrant up --provider vmware_fusion --provision``
 
-**Create a private network prior to booting instance (VirtualBox)** <br />
+**Create a private network prior to booting instance** <br />
 
 ``neutron net-create private`` <br />
 
@@ -40,3 +40,9 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 ``neutron net-create public --router:external True --provider:network_type flat --provider:physical_network physnet1``<br /> 
 
 ``neutron subnet-create --name public-subnet --gateway 10.0.4.2 --allocation-pool start=10.0.4.100,end=10.0.4.200 --disable-dhcp <public_network_id> 10.0.4.0/24``
+
+**Create an external network for the internet gateway (VMware Fusion)** <br /> 
+
+``neutron net-create public --router:external True --provider:network_type flat --provider:physical_network physnet1``<br /> 
+
+``neutron subnet-create --name public-subnet --gateway 192.16.13.2 --allocation-pool start=192.16.13.100,end=192.16.13.200 --disable-dhcp <public_network_id> 192.16.13.0/24``
