@@ -29,6 +29,10 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 
 ``vagrant up --provider vmware_fusion --provision``
 
+**Horizon Dashboard** <br />
+``http://192.168.56.56/horizon`` (VirtualBox)
+``http://172.16.99.100/horizon`` (VMware Fusion)
+
 **SSH into node1** <br />
 
 ``vagrant ssh node1``
@@ -63,7 +67,7 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 
 ``neutron net-create public --router:external True --provider:network_type flat --provider:physical_network physnet1``<br /> 
 
-``neutron subnet-create --name public-subnet --gateway 192.16.13.2 --allocation-pool start=192.16.13.100,end=192.16.13.200 --disable-dhcp <public_network_id> 192.16.13.0/24``
+``neutron subnet-create --name public-subnet --gateway 192.168.13.2 --allocation-pool start=192.168.13.100,end=192.168.13.200 --disable-dhcp <public_network_id> 192.168.13.0/24``
 
 **Create a router**
 
@@ -73,6 +77,6 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 
 ``neutron router-interface-add <router_id> <private-subnet_id>``
 
-**Set public-network as the default gatewy**
+**Set public-network as the default gateway**
 
 ``neutron router-gateway-set <router_id> <public-network_id>``
