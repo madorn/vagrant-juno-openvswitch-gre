@@ -28,4 +28,4 @@ Verify that you have default host-only vmnet1 network (172.16.99.0/24) <br />
 
 **Creating an external network for the internet gateway  (br-ex)** <br /> 
 ``neutron net-create public-net --router:external True --provider:network_type flat --provider:physical_network physnet1``<br /> 
-``neutron subnet-create --gateway --allocation-pool start=10.0.0.0,end=10.0.0.0 --disable-dhcp public-subnet 10.0.0.0/24``
+``neutron subnet-create --gateway 10.0.4.2 --allocation-pool start=10.0.0.0,end=10.0.0.0 --disable-dhcp public-subnet 10.0.0.0/24``
