@@ -17,7 +17,7 @@ Get Started
 ------------
 **Clone the Git repo** <br /> 
 
-``git clone https://github.com/madorn//vagrant-juno-openvswitch-gre.git`` <br /> 
+``git clone https://github.com/madorn/vagrant-juno-openvswitch-gre.git`` <br /> 
 
 **For VirtualBox** <br />
 Verify that you have default host-only vboxnet0 network (192.168.56.0/24) <br />
