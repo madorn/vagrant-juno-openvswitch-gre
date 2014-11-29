@@ -299,8 +299,6 @@ physical_interface_mappings = physnet1:br-ex
 agent_boot_time = 180
 EOF
 
-EOF
-
 sudo neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade juno
 
 sudo service neutron-server start
