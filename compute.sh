@@ -82,7 +82,7 @@ sudo sed -i 's|# enable_security_group = True|firewall_driver = neutron.agent.li
 local_ip = $MY_IP
 tunnel_type = gre
 enable_tunneling = True
-physical_interface_mappings = physnet:br-ex
+physical_interface_mappings = physnet1:br-ex
 
 [agent]
 l2_population = True
