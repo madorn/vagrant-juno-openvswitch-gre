@@ -42,7 +42,7 @@ end
         override.vm.network "private_network", ip: "172.16.99.101"
 	override.vm.network "private_network", type: "dhcp"
         vf.vmx["numvcpus"] = "1"
-        vf.vmx["memsize"] = "1024"
+        vf.vmx["memsize"] = "2048"
         vf.vmx["vhv.enable"] = "TRUE"
         vf.vmx["ethernet1.present"] = "TRUE"
         vf.vmx["ethernet1.connectionType"] = "hostonly"
@@ -75,7 +75,7 @@ end
 node3.vm.provider "vmware_fusion" do |vf, override|
         override.vm.network "private_network", ip: "172.16.99.102"
         vf.vmx["numvcpus"] = "1"
-        vf.vmx["memsize"] = "1024"
+        vf.vmx["memsize"] = "2048"
         vf.vmx["vhv.enable"] = "TRUE"
         vf.vmx["ethernet1.present"] = "TRUE"
         vf.vmx["ethernet1.connectionType"] = "hostonly"
