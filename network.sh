@@ -32,7 +32,9 @@ export NEUTRON_EXTERNAL_NETWORK_INTERFACE=eth2
 
 ntpdate -u ntp.ubuntu.com | true
 
-### Juno (run these one at a time)
+### Juno
+
+apt-get update
 
 apt-get install -y ubuntu-cloud-keyring software-properties-common
  
